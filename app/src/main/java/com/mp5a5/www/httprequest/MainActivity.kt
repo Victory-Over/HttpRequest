@@ -24,10 +24,12 @@ class MainActivity : RxAppCompatActivity() {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(this.bindToLifecycle())
-                .subscribe(object : BaseObserver<NBAEntity>() {
+                .subscribe(object : BaseObserver<NBAEntity>(this,true) {
                     override fun onSuccess(response: NBAEntity?) {
                         toast(response?.result?.title!!)
+                        //ApiConfig.setToken(response?.token)
                     }
+
 
                 })
         }

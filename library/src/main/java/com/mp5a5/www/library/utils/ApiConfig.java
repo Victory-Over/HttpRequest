@@ -11,14 +11,15 @@ import java.io.Serializable;
  * @describe 网络请求配置文件
  * @email：wwb199055@126.com
  */
-public class ApiConfig {
+public class ApiConfig implements Serializable{
 
     private static int mInvalidateToke;
     private static String mBaseUrl;
     private static int mDefaultTimeout = 2000;
     private static int mSucceedCode;
     private static String mQuitBroadcastReceiverFilter;
-    private static ArrayMap<String , String> mHeads;
+    private static ArrayMap<String, String> mHeads;
+    private static String mToken = "";
 
     private ApiConfig(Builder builder) {
         mInvalidateToke = builder.mToken;
@@ -26,7 +27,7 @@ public class ApiConfig {
         mDefaultTimeout = builder.defaultTimeout;
         mSucceedCode = builder.succeedCode;
         mQuitBroadcastReceiverFilter = builder.mFilter;
-        mHeads=builder.heads;
+        mHeads = builder.heads;
     }
 
     public void init(Context appContext) {
@@ -59,6 +60,15 @@ public class ApiConfig {
 
     public static void setHeads(ArrayMap<String, String> mHeads) {
         ApiConfig.mHeads = mHeads;
+    }
+
+
+    public static String getToken() {
+        return mToken;
+    }
+
+    public static void setToken(String mToken) {
+        ApiConfig.mToken = mToken;
     }
 
     public static final class Builder implements Serializable {
@@ -101,8 +111,9 @@ public class ApiConfig {
             return this;
         }
 
-        public void setDefaultTimeout(int defaultTimeout) {
+        public Builder setDefaultTimeout(int defaultTimeout) {
             this.defaultTimeout = defaultTimeout;
+            return this;
         }
 
         public ApiConfig build() {

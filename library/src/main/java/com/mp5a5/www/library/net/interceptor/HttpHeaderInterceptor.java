@@ -21,15 +21,16 @@ public class HttpHeaderInterceptor implements Interceptor {
     @Override
     @EverythingIsNonNull
     public Response intercept(Chain chain) throws IOException {
-        String accessToken = "token";
-        String tokenType = "tokenType";
+
         Request originalRequest = chain.request();
 
         Map<String, String> heads = ApiConfig.getHeads();
 
+        String token = ApiConfig.getToken();
+
         Request.Builder authorization = originalRequest.newBuilder()
                 .header("Content-type", "application/json")
-                .header("Authorization", tokenType + " " + accessToken)
+                .header("Authorization", token)
                 .addHeader("Connection", "close")
                 .addHeader("Accept-Encoding", "identity");
 
