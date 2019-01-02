@@ -17,7 +17,7 @@ allprojects {
 
 ```Java
 dependencies {
-   implementation 'com.github.Mp5A5:HttpRequest:1.0.1'
+   implementation 'com.github.Mp5A5:HttpRequest:1.0.2'
 }
 ```
 
