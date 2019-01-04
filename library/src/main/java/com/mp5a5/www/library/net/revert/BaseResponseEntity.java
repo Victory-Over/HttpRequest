@@ -23,7 +23,7 @@ public class BaseResponseEntity implements Serializable {
   }
 
   public int getTokenInvalid() {
-    return ApiConfig.getInvalidateToke();
+    return ApiConfig.getInvalidateToken();
   }
 
 }

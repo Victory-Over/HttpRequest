@@ -11,31 +11,35 @@ import java.io.Serializable;
  * @describe 网络请求配置文件
  * @email：wwb199055@126.com
  */
-public class ApiConfig implements Serializable{
+public class ApiConfig implements Serializable {
 
-    private static int mInvalidateToke;
+    private static int mInvalidateToken;
     private static String mBaseUrl;
     private static int mDefaultTimeout = 2000;
     private static int mSucceedCode;
     private static String mQuitBroadcastReceiverFilter;
     private static ArrayMap<String, String> mHeads;
     private static String mToken = "";
+    private static boolean mOpenHttps;
+    private static SslSocketConfigure mSslSocketConfigure;
 
     private ApiConfig(Builder builder) {
-        mInvalidateToke = builder.mToken;
-        mBaseUrl = builder.mBaseUrl;
+        mInvalidateToken = builder.invalidateToken;
+        mBaseUrl = builder.baseUrl;
         mDefaultTimeout = builder.defaultTimeout;
         mSucceedCode = builder.succeedCode;
-        mQuitBroadcastReceiverFilter = builder.mFilter;
+        mQuitBroadcastReceiverFilter = builder.broadcastFilter;
         mHeads = builder.heads;
+        mOpenHttps = builder.openHttps;
+        mSslSocketConfigure = builder.sslSocketConfigure;
     }
 
     public void init(Context appContext) {
         AppContextUtils.init(appContext);
     }
 
-    public static int getInvalidateToke() {
-        return mInvalidateToke;
+    public static int getInvalidateToken() {
+        return mInvalidateToken;
     }
 
     public static String getBaseUrl() {
@@ -71,19 +75,32 @@ public class ApiConfig implements Serializable{
         ApiConfig.mToken = mToken;
     }
 
-    public static final class Builder implements Serializable {
+    public static boolean getOpenHttps() {
+        return mOpenHttps;
+    }
 
-        private int mToken;
 
-        private String mBaseUrl;
+    public static SslSocketConfigure getSslSocketConfigure() {
+        return mSslSocketConfigure;
+    }
+
+    public static final class Builder  {
+
+        private int invalidateToken;
+
+        private String baseUrl;
 
         private int defaultTimeout;
 
         private int succeedCode;
 
-        private String mFilter;
+        private String broadcastFilter;
 
         private ArrayMap<String, String> heads;
+
+        private boolean openHttps = false;
+
+        private SslSocketConfigure sslSocketConfigure;
 
         public Builder setHeads(ArrayMap<String, String> heads) {
             this.heads = heads;
@@ -91,7 +108,7 @@ public class ApiConfig implements Serializable{
         }
 
         public Builder setFilter(@NonNull String filter) {
-            this.mFilter = filter;
+            this.broadcastFilter = filter;
             return this;
         }
 
@@ -102,17 +119,27 @@ public class ApiConfig implements Serializable{
         }
 
         public Builder setBaseUrl(String mBaseUrl) {
-            this.mBaseUrl = mBaseUrl;
+            this.baseUrl = mBaseUrl;
             return this;
         }
 
         public Builder setInvalidateToken(int invalidateToken) {
-            this.mToken = invalidateToken;
+            this.invalidateToken = invalidateToken;
             return this;
         }
 
         public Builder setDefaultTimeout(int defaultTimeout) {
             this.defaultTimeout = defaultTimeout;
+            return this;
+        }
+
+        public Builder setOpenHttps(boolean open) {
+            this.openHttps = open;
+            return this;
+        }
+
+        public Builder setSslSocketConfigure(SslSocketConfigure sslSocketConfigure) {
+            this.sslSocketConfigure = sslSocketConfigure;
             return this;
         }
 

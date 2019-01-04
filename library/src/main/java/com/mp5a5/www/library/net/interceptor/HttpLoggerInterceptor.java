@@ -8,9 +8,9 @@ import okhttp3.logging.HttpLoggingInterceptor;
  * @describe：
  * @email：wwb199055@126.com
  */
-public class LoggingInterceptor {
+public class HttpLoggerInterceptor {
 
-    public static HttpLoggingInterceptor getLoggingInterceptor() {
+    public static HttpLoggingInterceptor getLoggerInterceptor() {
         //日志拦截器
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor(message -> {
             Log.e("-->", message.toString());

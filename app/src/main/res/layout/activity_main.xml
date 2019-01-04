@@ -27,4 +27,20 @@
         app:layout_constraintTop_toBottomOf="@id/btnNBA"
         />
 
+    <Button
+        android:id="@+id/btnChoose"
+        android:layout_width="match_parent"
+        android:layout_height="?android:actionBarSize"
+        app:layout_constraintTop_toBottomOf="@id/tvTest"
+        android:text="选取"
+        />
+
+    <Button
+        android:id="@+id/btnUpload"
+        android:layout_width="match_parent"
+        android:layout_height="?android:actionBarSize"
+        app:layout_constraintTop_toBottomOf="@id/btnChoose"
+        android:text="上传"
+        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

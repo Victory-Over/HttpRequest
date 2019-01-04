@@ -3,6 +3,7 @@ package com.mp5a5.www.httprequest
 import android.app.Application
 import android.util.ArrayMap
 import com.mp5a5.www.library.utils.ApiConfig
+import com.mp5a5.www.library.utils.SslSocketConfigure
 
 /**
  * @author ：mp5a5 on 2018/12/28 15：12
@@ -19,10 +20,22 @@ class App : Application() {
         headMap["key2"] = "value2"
         headMap["key3"] = "value3"
 
+        val sslSocketConfigure = SslSocketConfigure.Builder()
+            .setVerifyType(2)
+            .setClientPriKey("client.bks")
+            .setTrustPubKey("truststore.bks")
+            .setClientBKSPassword("123456")
+            .setTruststoreBKSPassword("123456")
+            .setKeystoreType("BKS")
+            .setProtocolType("TLS")
+            .setCertificateType("X.509")
+            .build();
+
+
         val build = ApiConfig.Builder()
             .setBaseUrl(baseUrl)//BaseUrl，这个地方加入后项目中默认使用该url
-            .setInvalidateToken(200)//Token失效码
-            .setSucceedCode(0)//成功返回码
+            .setInvalidateToken(0)//Token失效码
+            .setSucceedCode(200)//成功返回码
             //Token失效后发动态广播的Filter，配合BaseObserver中的标识进行接收使用
             // public static final String TOKEN_INVALID_TAG = "token_invalid";
             // public static final String QUIT_APP = "quit_app";
@@ -56,6 +69,8 @@ class App : Application() {
             .setFilter("com.mp5a5.quit.broadcastFilter")
             //.setDefaultTimeout(2000)//响应时间，可以不设置，默认为2000毫秒
             //.setHeads(headMap)//动态添加的header，也可以在其他地方通过ApiConfig.setHeads()设置
+            .setOpenHttps(true)
+            .setSslSocketConfigure(sslSocketConfigure)
             .build()
         build.init(this)
 
