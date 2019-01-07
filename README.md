@@ -25,7 +25,7 @@ compileOptions {
 ```Java
 dependencies {
 
-       implementation 'com.github.Mp5A5:HttpRequest:1.0.2'
+       implementation 'com.github.Mp5A5:HttpRequest:1.0.3'
 }
 ```
 
