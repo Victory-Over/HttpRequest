@@ -70,13 +70,9 @@ public class SslSocketFactory {
     public static SSLSocketFactory getSSLSocketFactory() {
 
         try {
-            // 服务器端需要验证的客户端证书，客户端的keystore
-            // 客户端信任的服务器端证书
             KeyStore keyStore = KeyStore.getInstance(ApiConfig.getSslSocketConfigure().getKeystoreType());
-            //读取证书
             KeyStore trustStore = KeyStore.getInstance(ApiConfig.getSslSocketConfigure().getKeystoreType());
             InputStream keyInput = AppContextUtils.getContext().getAssets().open(ApiConfig.getSslSocketConfigure().getClientPriKey());
-            //加载证书
             InputStream trustInput = AppContextUtils.getContext().getAssets().open(ApiConfig.getSslSocketConfigure().getTrustPubKey());
             keyStore.load(keyInput, ApiConfig.getSslSocketConfigure().getClientBKSPassword().toCharArray());
             trustStore.load(trustInput, ApiConfig.getSslSocketConfigure().getTruststoreBKSPassword().toCharArray());

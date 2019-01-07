@@ -29,6 +29,7 @@ class MainActivity : RxAppCompatActivity() {
 
 
         btnNBA.setOnClickListener {
+
             NBAService
                 .getNBAInfo("6949e822e6844ae6453fca0cf83379d3")
                 .subscribeOn(Schedulers.io())
@@ -76,7 +77,7 @@ class MainActivity : RxAppCompatActivity() {
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .compose(this@MainActivity.bindToLifecycle())
-                        .subscribe(object : BaseObserver<UploadEntity>(this,true){
+                        .subscribe(object : BaseObserver<UploadEntity>(this, true) {
                             override fun onSuccess(response: UploadEntity?) {
                                 toast(response?.msg!!)
                             }
@@ -113,6 +114,8 @@ class MainActivity : RxAppCompatActivity() {
         }
         super.onActivityResult(requestCode, resultCode, data)
     }
+
+
 
 }
 
