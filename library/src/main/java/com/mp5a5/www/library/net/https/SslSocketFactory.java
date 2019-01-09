@@ -21,14 +21,6 @@ import java.security.cert.CertificateFactory;
 @SuppressWarnings("ALL")
 public class SslSocketFactory {
 
-    private final static String CLIENT_PRI_KEY = "client.bks";
-    private final static String TRUSTSTORE_PUB_KEY = "truststore.bks";
-    private final static String CLIENT_BKS_PASSWORD = "123456";
-    private final static String TRUSTSTORE_BKS_PASSWORD = "123456";
-    private final static String KEYSTORE_TYPE = "BKS";
-    private final static String PROTOCOL_TYPE = "TLS";
-    private final static String CERTIFICATE_FORMAT = "X.509";
-
     /**
      * HTTPS单向认证
      *
