@@ -35,7 +35,7 @@ class App : Application() {
         val build = ApiConfig.Builder()
             .setBaseUrl(baseUrl)//BaseUrl，这个地方加入后项目中默认使用该url
             .setInvalidateToken(0)//Token失效码
-            .setSucceedCode(200)//成功返回码
+            .setSucceedCode(0)//成功返回码
             /*
              *    Token失效后发送动态广播，配合BaseObserver中的标识进行接收使用
              *    public static final String TOKEN_INVALID_TAG = "token_invalid";
