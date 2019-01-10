@@ -28,7 +28,18 @@ dependencies {
        implementation 'com.github.Mp5A5:HttpRequest:1.0.3'
 }
 ```
-
+如果项目是用的support包则使用RxLifecycle2及对应的版本
+```Java
+    implementation 'com.trello.rxlifecycle2:rxlifecycle:latest-version'
+    implementation 'com.trello.rxlifecycle2:rxlifecycle-android:latest-version'
+    implementation 'com.trello.rxlifecycle2:rxlifecycle-components:version'
+```
+如果项目是用的androidx包则使用RxLifecycle3及对应的版本
+```Java
+    implementation 'com.trello.rxlifecycle3:rxlifecycle:latest-version'
+    implementation 'com.trello.rxlifecycle3:rxlifecycle-android:latest-version'
+    implementation 'com.trello.rxlifecycle3:rxlifecycle-components:latest-version'
+```
 #### 2、使用步骤
 
 ###### 1.在Application类中进行初始化操作
