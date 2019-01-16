@@ -1,6 +1,4 @@
-# HttpRequest
-
-基于Retrofit2+RxJava+OkHttp3+RxLifecycle3的网络请求框架
+# 基于Retrofit2+RxJava+OkHttp3+RxLifecycle3的网络请求框架
 
 #### 1、添加依赖和配置
 
