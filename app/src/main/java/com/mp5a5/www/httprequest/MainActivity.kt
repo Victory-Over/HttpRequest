@@ -11,6 +11,7 @@ import com.mp5a5.www.httprequest.net.entity.NBAEntity
 import com.mp5a5.www.httprequest.net.entity.UploadEntity
 import com.mp5a5.www.library.use.BaseObserver
 import com.mp5a5.www.library.utils.UploadManager
+import com.tbruyelle.rxpermissions2.RxPermissions
 import com.trello.rxlifecycle3.components.support.RxAppCompatActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -60,9 +61,17 @@ class MainActivity : RxAppCompatActivity() {
         }
 
         btnChoose.setOnClickListener { v ->
-            val intent = Intent(Intent.ACTION_PICK, MediaStore.Audio.Media.EXTERNAL_CONTENT_URI)
-            intent.type = "image/*"
-            startActivityForResult(intent, 1)
+            RxPermissions(this).requestEach(android.Manifest.permission.WRITE_EXTERNAL_STORAGE).subscribe {
+                if (it.granted) {
+                    val intent = Intent(Intent.ACTION_PICK, MediaStore.Audio.Media.EXTERNAL_CONTENT_URI)
+                    intent.type = "image/*"
+                    startActivityForResult(intent, 1)
+                }
+                if (it.shouldShowRequestPermissionRationale) {
+                    toast("请打开权限")
+                }
+            }
+
 
         }
 
@@ -114,7 +123,6 @@ class MainActivity : RxAppCompatActivity() {
         }
         super.onActivityResult(requestCode, resultCode, data)
     }
-
 
 
 }
