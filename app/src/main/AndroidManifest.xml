@@ -19,7 +19,7 @@
             android:usesCleartextTraffic="true"
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".MainActivity">
+        <activity android:name=".TestAllActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -27,7 +27,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".TestActivity"/>
-        <activity android:name=".TestNBAActivity"/>
+        <activity android:name=".KotlinTestActivity"/>
     </application>
 
 </manifest>

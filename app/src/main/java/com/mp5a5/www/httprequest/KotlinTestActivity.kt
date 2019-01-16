@@ -20,7 +20,7 @@ import org.jetbrains.anko.toast
 import java.io.File
 import java.net.URISyntaxException
 
-class MainActivity : RxAppCompatActivity() {
+class KotlinTestActivity : RxAppCompatActivity() {
 
 
     private val list = mutableListOf<File>()
@@ -85,7 +85,7 @@ class MainActivity : RxAppCompatActivity() {
                         .uploadPic(t)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .compose(this@MainActivity.bindToLifecycle())
+                        .compose(this@KotlinTestActivity.bindToLifecycle())
                         .subscribe(object : BaseObserver<UploadEntity>(this, true) {
                             override fun onSuccess(response: UploadEntity?) {
                                 toast(response?.msg!!)
