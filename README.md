@@ -40,7 +40,7 @@ dependencies {
     implementation 'com.trello.rxlifecycle3:rxlifecycle-android:latest-version'
     implementation 'com.trello.rxlifecycle3:rxlifecycle-components:latest-version'
 ```
-#### 2、使用步骤
+#### 2、简单使用步骤
 
 ###### 1.在Application类中进行初始化操作
 
@@ -115,38 +115,38 @@ dependencies {
 ###### 2.定义接口
 
 ```Java
-public interface UploadApi {
+public interface NBAApiT {
 
-    @Multipart
-    @POST("ues/app/upload/pictures")
-    Observable<UploadEntity> postUpload(@Part List<MultipartBody.Part> partList);
+    @GET("onebox/basketball/nba")
+    Observable<NBAEntity> getNBAInfo(@QueryMap ArrayMap<String, Object> map);
 }
 ```
 
 ###### 3.创建实例
 ```Java
 单例模式创建Service，推荐使用这种
-public class UploadService {
+public class NbaService {
 
-    private final UploadApi mUploadApi;
 
-    private UploadService() {
-        //推荐使用这种，因为BaseUrl已经初始化了
-        //mUploadApi = RetrofitFactory.getInstance().create(UploadApi.class);
-        String url = "http://fnw-api-nginx-fnw-test.topaas.enncloud.cn/";
-        mUploadApi = RetrofitFactory.getInstance().create(url,UploadApi.class);
+    private NBAApiT nbaApiT;
+
+    private NbaService() {
+        nbaApiT = RetrofitFactory.getInstance().create(NBAApiT.class);
     }
 
-    public static UploadService getInstance() {
-        return UploadServiceHolder.S_INSTANCE;
+    public static NbaService getInstance() {
+        return NbaServiceHolder.S_INSTANCE;
     }
 
-    private static class UploadServiceHolder {
-        private static final UploadService S_INSTANCE = new UploadService();
+    private static class NbaServiceHolder {
+        private static final NbaService S_INSTANCE = new NbaService();
     }
 
-    public Observable<UploadEntity> uploadPic(List<MultipartBody.Part> picList) {
-        return mUploadApi.postUpload(picList);
+
+    public Observable<NBAEntity> getNBAInfo(String key) {
+        ArrayMap<String, Object> arrayMap = new ArrayMap<String, Object>();
+        arrayMap.put("key", key);
+        return nbaApiT.getNBAInfo(arrayMap);
     }
 
 }
@@ -199,58 +199,29 @@ public class NBAEntity extends BaseResponseEntity {
 
 ```Java
 
-public class TestActivity extends RxAppCompatActivity {
+findViewById(R.id.btnNBA).setOnClickListener(v -> {
+            NbaService.getInstance()
+                    .getNBAInfo("6949e822e6844ae6453fca0cf83379d3")
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .compose(this.bindToLifecycle())
+                    .subscribe(new BaseObserver<NBAEntity>(){
 
-    private QuitAppReceiver mQuitAppReceiver;
+                        @Override
+                        public void onSuccess(NBAEntity response) {
+                            Toast.makeText(TestNBAActivity.this, response.result.title, Toast.LENGTH_SHORT).show();
+                        }
 
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        initReceiver();
-
-
-        new NBAServiceTT()
-                .getNBAInfo("6949e822e6844ae6453fca0cf83379d3")
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .compose(this.bindToLifecycle())
-                .subscribe(new BaseObserver<NBAEntity>(this, true) {
-                    @Override
-                    public void onSuccess(NBAEntity response) {
-                        Toast.makeText(TestActivity.this, response.result.title, Toast.LENGTH_SHORT).show();
-                    }
-                });
+                    });
 
 
-    }
-
-    private void initReceiver() {
-        mQuitAppReceiver = new QuitAppReceiver();
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(ApiConfig.getQuitBroadcastReceiverFilter());
-        registerReceiver(mQuitAppReceiver, filter);
-    }
-
-
-    private class QuitAppReceiver extends BroadcastReceiver {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (ApiConfig.getQuitBroadcastReceiverFilter().equals(intent.getAction())) {
-
-                String msg = intent.getStringExtra(BaseObserver.TOKEN_INVALID_TAG);
-                if (!TextUtils.isEmpty(msg)) {
-                    Toast.makeText(TestActivity.this, msg, Toast.LENGTH_SHORT).show();
-                }
-            }
-        }
-    }
-}
+        });
 
 ```
 
 #### 3、效果展示
 
 ![show.gif](img/show.gif)
+
+###### 6.参考资料请移交 https://blog.csdn.net/CherryBean/article/details/86223249
 
