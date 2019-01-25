@@ -63,6 +63,8 @@ public class RetrofitFactory {
                 .setDateFormat("yyyy-MM-dd HH:mm:ss")
                 .serializeNulls()
                 .registerTypeAdapterFactory(new NullTypeAdapterFactory())
+                .setPrettyPrinting()
+                .disableHtmlEscaping()
                 .create();
 
         retrofit = new Retrofit.Builder()
