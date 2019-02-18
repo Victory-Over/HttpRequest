@@ -4,8 +4,8 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.provider.MediaStore
-import com.mp5a5.www.httprequest.net.api.NBAService
 import com.mp5a5.www.httprequest.net.api.NBAServiceT
+import com.mp5a5.www.httprequest.net.api.NbaService
 import com.mp5a5.www.httprequest.net.api.UploadService
 import com.mp5a5.www.httprequest.net.entity.NBAEntity
 import com.mp5a5.www.httprequest.net.entity.UploadEntity
@@ -30,8 +30,7 @@ class KotlinTestActivity : RxAppCompatActivity() {
 
 
         btnNBA.setOnClickListener {
-
-            NBAService
+            NbaService.getInstance()
                 .getNBAInfo("6949e822e6844ae6453fca0cf83379d3")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
