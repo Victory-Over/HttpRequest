@@ -10,20 +10,22 @@ import java.io.Serializable;
  * @describe：网络请求返回值
  * @email：wwb199055@126.com
  */
-public class BaseResponseEntity implements Serializable {
+public class BaseResponseEntity<T> implements Serializable {
 
-  private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-  public int code;
+    public int code;
 
-  public String msg;
+    public String msg;
 
-  public boolean success() {
-    return ApiConfig.getSucceedCode() == code;
-  }
+    public boolean success() {
+        return ApiConfig.getSucceedCode() == code;
+    }
 
-  public int getTokenInvalid() {
-    return ApiConfig.getInvalidateToken();
-  }
+    public int getTokenInvalid() {
+        return ApiConfig.getInvalidateToken();
+    }
+
+    public T data;
 
 }

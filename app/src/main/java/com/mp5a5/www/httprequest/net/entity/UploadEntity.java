@@ -11,7 +11,7 @@ import java.util.List;
  * email：wwb199055@126.com
  */
 
-public class UploadEntity extends BaseResponseEntity {
+public class UploadEntity extends BaseResponseEntity<UploadEntity> {
 
     public List<FileBean> files;
 

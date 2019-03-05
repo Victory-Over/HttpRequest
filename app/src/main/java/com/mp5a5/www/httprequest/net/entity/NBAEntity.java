@@ -10,7 +10,7 @@ import java.util.List;
  * @describe
  * @email：wwb199055@126.com
  */
-public class NBAEntity extends BaseResponseEntity {
+public class NBAEntity extends BaseResponseEntity<NBAEntity> {
 
 
     @SerializedName("error_code")
