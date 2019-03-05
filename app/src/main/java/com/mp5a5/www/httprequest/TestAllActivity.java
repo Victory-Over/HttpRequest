@@ -52,6 +52,8 @@ public class TestAllActivity extends RxAppCompatActivity {
                         @Override
                         public void onSuccess(NBAEntity response) {
                             Toast.makeText(TestAllActivity.this, response.result.title, Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(TestAllActivity.this, String.valueOf(response.code), Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(TestAllActivity.this, response.reason, Toast.LENGTH_SHORT).show();
                         }
 
                     });
