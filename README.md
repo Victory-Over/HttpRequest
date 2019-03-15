@@ -23,7 +23,7 @@ compileOptions {
 ```Java
 dependencies {
 
-       implementation 'com.github.Mp5A5:HttpRequest:1.0.5'
+       implementation 'com.github.Mp5A5:HttpRequest:1.0.6'
 }
 ```
 如果项目是用的support包则使用RxLifecycle2及对应的版本
