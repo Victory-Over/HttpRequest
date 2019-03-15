@@ -51,7 +51,7 @@ public class SslSocketConfigure implements Serializable {
     /**
      * 证书*****单向验证使用
      */
-    private InputStream[] inputStream;
+    private InputStream inputStream;
 
     private SslSocketConfigure(Builder builder) {
         this.verifyType = builder.verifyType;
@@ -124,7 +124,7 @@ public class SslSocketConfigure implements Serializable {
     /**
      * 证书*****单向验证使用
      */
-    public InputStream[] getCertificateInputStream() {
+    public InputStream getCertificateInputStream() {
         return inputStream;
     }
 
@@ -138,7 +138,7 @@ public class SslSocketConfigure implements Serializable {
         private String keystoreType;
         private String protocolType;
         private String certificateType;
-        private InputStream[] inputStream;
+        private InputStream inputStream;
 
 
         /**
@@ -208,7 +208,7 @@ public class SslSocketConfigure implements Serializable {
         /**
          * 证书流*****单向验证使用
          */
-        public Builder setInputStream(InputStream[] inputStream) {
+        public Builder setInputStream(InputStream inputStream) {
             this.inputStream = inputStream;
             return this;
         }
