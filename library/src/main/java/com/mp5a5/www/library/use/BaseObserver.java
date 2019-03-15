@@ -9,6 +9,7 @@ import com.mp5a5.www.library.net.dialog.CustomProgressDialogUtils;
 import com.mp5a5.www.library.net.revert.BaseResponseEntity;
 import com.mp5a5.www.library.utils.ApiConfig;
 import com.mp5a5.www.library.utils.AppContextUtils;
+import com.mp5a5.www.library.utils.VariableUtils;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import org.json.JSONException;
@@ -33,6 +34,8 @@ public abstract class BaseObserver<T extends BaseResponseEntity> implements Obse
     private CustomProgressDialogUtils progressDialogUtils;
     private Context mContext;
     private boolean mShowLoading = false;
+
+    private volatile int mCount = 0;
 
     /**
      * token失效 发送广播标识
@@ -88,11 +91,10 @@ public abstract class BaseObserver<T extends BaseResponseEntity> implements Obse
             }
         } else if (response.getTokenInvalid() == response.code) {
             //token失效捕捉，发送广播，在项目中接收该动态广播然后做退出登录等一些列操作
-            Intent intent = new Intent();
-            intent.setAction(ApiConfig.getQuitBroadcastReceiverFilter());
-            intent.putExtra(TOKEN_INVALID_TAG, QUIT_APP);
-            AppContextUtils.getContext().sendBroadcast(intent);
-
+            if (System.currentTimeMillis() - VariableUtils.temp_system_time > 1000) {
+                sendBroadcast();
+            }
+            VariableUtils.temp_system_time = System.currentTimeMillis();
         } else {
             try {
                 onFailing(response);
@@ -100,6 +102,13 @@ public abstract class BaseObserver<T extends BaseResponseEntity> implements Obse
                 e.printStackTrace();
             }
         }
+    }
+
+    private void sendBroadcast() {
+        Intent intent = new Intent();
+        intent.setAction(ApiConfig.getQuitBroadcastReceiverFilter());
+        intent.putExtra(TOKEN_INVALID_TAG, QUIT_APP);
+        AppContextUtils.getContext().sendBroadcast(intent);
     }
 
 
