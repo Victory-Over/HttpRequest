@@ -35,8 +35,6 @@ public abstract class BaseObserver<T extends BaseResponseEntity> implements Obse
     private Context mContext;
     private boolean mShowLoading = false;
 
-    private volatile int mCount = 0;
-
     /**
      * token失效 发送广播标识
      */
@@ -91,8 +89,13 @@ public abstract class BaseObserver<T extends BaseResponseEntity> implements Obse
             }
         } else if (response.getTokenInvalid() == response.code) {
             //token失效捕捉，发送广播，在项目中接收该动态广播然后做退出登录等一些列操作
-            if (System.currentTimeMillis() - VariableUtils.temp_system_time > 1000) {
+            VariableUtils.receive_token_count++;
+            if (1 == VariableUtils.receive_token_count) {
                 sendBroadcast();
+            } else if (VariableUtils.receive_token_count > 1) {
+                if (System.currentTimeMillis() - VariableUtils.temp_system_time > 1000) {
+                    sendBroadcast();
+                }
             }
             VariableUtils.temp_system_time = System.currentTimeMillis();
         } else {
